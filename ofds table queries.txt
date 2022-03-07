@@ -1,0 +1,85 @@
+
+
+
+Table:
+------
+create table appuser(
+appuser_pk int auto_increment not null primary key,
+email varchar(255),
+password varchar(255)
+);
+
+
+
+
+
+Table:
+------
+create table restro(
+restro_pk int auto_increment not null primary key,
+address varchar(255),
+contact varchar(255),
+gstno varchar(255),
+name varchar(255),
+appuser_fk int not null,
+foreign key (appuser_fk) references appuser(appuser_pk)
+);
+
+
+
+
+Table:
+-------
+
+create table userdata(
+id int auto_increment not null primary key,
+name varchar(255),
+ucontact varchar(255),
+appuser_fk int not null,
+foreign key (appuser_fk) references appuser(appuser_pk)
+);
+
+
+
+
+Table:
+------
+create table category(
+category_pk int auto_increment not null primary key,
+cname varchar(255),
+restro_fk int not null,
+foreign key (restro_fk) references restro(restro_pk)
+);
+
+
+Table:
+------
+
+create table product(
+id int auto_increment not null primary key,
+description  varchar(255),
+name varchar(255),
+price int,
+status varchar(255),
+category_fk int not null,
+foreign key (category_fk) references category(category_pk)
+);
+
+
+
+Table:
+------
+create table userpurchase(
+userpurchase_pk int auto_increment not null primary key,
+address varchar(255),
+amount varchar(255),
+pdata json,
+ptype varchar(255),
+status varchar(255),
+tranxid varchar(255),
+ucontact varchar(255),
+user_fk int not null,
+restro_fk int not null,
+foreign key (user_fk) references appuser(appuser_pk),
+foreign key (restro_fk) references restro(restro_pk)
+);
